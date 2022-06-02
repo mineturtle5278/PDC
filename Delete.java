@@ -18,21 +18,20 @@ import javax.swing.JTextField;
  *
  * @author 64211
  */
-public class Search extends Menu{
-    private JFrame jf = new JFrame("Find Student Information");
-    private JButton jb = new JButton("Search");
-    private JLabel jl = new JLabel("Please enter the student number or name of the student you want to search ");
+public class Delete extends Menu{
+    private JFrame jf= new JFrame("Delete student's information!");
+    private JButton jb= new JButton("Delete");
+    private JLabel jl=new JLabel("Please enter the student ID to be deleted");
     private JTextField jt = new JTextField();
-    private String s = null;
-    private String sq = null;
-    
-    public Search() throws Exception{
+    private String s= null;
+    private String sq=null;
+    public Delete() throws Exception{
         super();
-        Font fo = new Font("Serief", Font.BOLD, 12);
+        Font fo= new Font("Serief",Font.BOLD,12);
         jl.setFont(fo);
         jt.setBounds(15,15,150,30);
-        jb.setBounds(175, 15, 60, 30);
-        jl.setBounds(10,80,180,30);
+        jb.setBounds(175,15,60,30);
+        jl.setBounds(10,80,80,30);
         jf.add(jt);
         jf.add(jb);
         jf.add(jl);
@@ -41,18 +40,18 @@ public class Search extends Menu{
         jf.setVisible(true);
         jb.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                if(e.getSource() == jb){
+                 if(e.getSource() == jb){
                     if(jt.getText().trim().equals("")){
                         JOptionPane.showMessageDialog(null, "The entered information cannot be empty, please re-enter!","Error message!",
                         JOptionPane.INFORMATION_MESSAGE);
                         f.dispose();
                         jf.dispose();
                         try{
-                            new Search();
+                            new Delete();
                         }catch(Exception ex){}
                     }else{
                         s = jt.getText().trim();
-                        try{
+                        
                             int t = Integer.parseInt(jt.getText().trim());
                             if(t<=0){
                                 JOptionPane.showMessageDialog(null, "The student id entered cannot be 0 or a negative number","Error message!",
@@ -60,30 +59,19 @@ public class Search extends Menu{
                                 f.dispose();
                                 jf.dispose();
                                 try{
-                                    new Search();
+                                    new Delete();
                                 }catch(Exception ex){}
                             }else{
-                                sq = "select id, name,math,physics,english,sum from stu where id like '%"+t+"%'";
+                                sq = "delete from stu where id="+t;
                                 jf.dispose();
                                 try{
-                                    show(sq,0," ");
+                                    show(sql,1,sq);
                                 }catch(Exception ex){}
                             }
-                        }catch(Exception ex){
-                            sq="select id, name,math,physics,english,average,sum from stu where name like '%"+s+"%'";
-                            jf.dispose();
-                            try{
-                                show(sq,0," ");
-                        }catch(Exception ex1){}
                         }
-                    }
-                }
+                 }  
             }
-
-
-            
-        });
+         });
+                
+    }
 }
-}
-    
-
